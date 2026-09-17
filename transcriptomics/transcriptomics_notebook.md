@@ -42,6 +42,16 @@
 
 \`print("Hello world")
 
+**Table:**
+
+| Col1 | Col2 | Col3 |
+|------|------|------|
+|      |      |      |
+|      |      |      |
+|      |      |      |
+
+**Image:**
+
 ------------------------------------------------------------------------
 
 # Transcriptomics Notebook
@@ -52,19 +62,21 @@
 
 ------------------------------------------------------------------------
 
-## 9.15.2026 - Setting up lab notebook and learning markdown
+## 9.17.2026 - Introduction to the study system and review of transcriptomics pipeline
 
--   Setting up transcriptomicsnotebooks
+-   introduction to copepod ecology and previous work
 
--   Learn how to take notes in markdown
+-   brainstorm questions to explore with copepods
 
--   Push notes to github
+-   examine fastq files
 
--   
+-   revisit transcriptomics pipeline with copepod application
 
 **Working Directory:**
 
 `/gpfs1/home/e/s/eshaw7/projects/eco_genomics__2026/transcriptomics`
+
+`/gpfs1/cl/biol3990`
 
 **Input Files:**
 
@@ -85,3 +97,19 @@
 `none`
 
 **Code:**
+
+```         
+# Useful commands for VACC shell access
+
+# Change directory to class directory
+cd /gpfs1/cl/biol3990
+
+# Print working directory 
+pwd
+
+# Make a list of what is inthe current directory 
+ls
+ll
+
+# 
+```
