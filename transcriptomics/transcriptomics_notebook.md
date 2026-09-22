@@ -113,3 +113,62 @@ ll
 
 # 
 ```
+
+------------------------------------------------------------------------
+
+## 9.22.2026 - Transcriptomics 3ay 3
+
+-   set up R environment
+
+-   created myresults, mydata, and myscripts directories
+
+-   added mydata directory to gitignore
+
+-   populated mydata directory with counts matrix
+
+-   copied the data to import into DESeq2 and R
+
+-   created a deseq2 object for our data
+
+-   visualized outliers
+
+**Working Directory:**
+
+`/gpfs1/home/e/s/eshaw7/projects/eco_genomics__2026/transcriptomics`
+
+**Input Files:**
+
+`none`
+
+**Output Files:**
+
+`/gpfs1/home/e/s/eshaw7/projects/eco_genomics__2026/transcriptomics/transcriptomics_notebook.md`
+
+**Programs and dependencies**:
+
+-   `R version 4.5.1`
+
+-   `R-Studio`
+
+**Scripts:**
+
+`/gpfs1/home/e/s/eshaw7/projects/eco_genomics__2026/transcriptomics/myscripts/ahud_DESeq2_inclass.R`
+
+**Code:**
+
+```         
+```
+
+**Table:**
+
+| Col1 | Col2 | Col3 |
+|------|------|------|
+|      |      |      |
+|      |      |      |
+|      |      |      |
+
+**Image:**
+
+------------------------------------------------------------------------
+
+# 
