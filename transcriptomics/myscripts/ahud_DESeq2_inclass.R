@@ -2,7 +2,8 @@
 ### using deseq2
 
 ## Set your working directory
-setwd("~/projects/eco_genomics_2026/transcriptomics")
+setwd("/gpfs1/home/e/s/eshaw7/projects/eco_genomics__2026/transcriptomics")
+
 
 ## Import the libraries that we're likely to need in this session
 
@@ -67,6 +68,7 @@ dds <- DESeqDataSetFromMatrix(countData = countsTableRound, colData=conds,
                               design= ~ generation + treatment)
 
 dim(dds)
+
 
 # Filter out genes with too few reads - remove all genes with counts < 15 in more than 75% of samples, so ~28)
 ## suggested by WGCNA on RNAseq FAQ
