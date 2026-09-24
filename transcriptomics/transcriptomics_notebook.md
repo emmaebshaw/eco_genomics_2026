@@ -111,12 +111,22 @@ pwd
 ls
 ll
 
-# 
+# Open a .fq file 
+zcat
+
+# Open just the top of a zcat file 
+zcat | head
+
+# Copy a file or directory and move it to another directory
+cp whateveryouwanttocopy whereyouwanttopasteit
+
+# Remove a file from current directory
+rm
 ```
 
 ------------------------------------------------------------------------
 
-## 9.22.2026 - Transcriptomics 3ay 3
+## 9.22.2026 - Transcriptomics Day 3
 
 -   set up R environment
 
@@ -131,6 +141,43 @@ ll
 -   created a deseq2 object for our data
 
 -   visualized outliers
+
+**Working Directory:**
+
+`/gpfs1/home/e/s/eshaw7/projects/eco_genomics__2026/transcriptomics/myscripts`
+
+**Input Files:**
+
+`/gpfs1/home/e/s/eshaw7/projects/eco_genomics__2026/transcriptomics/mydata/``salmon.isoform.counts.matrix.filteredAssembly`
+
+**Output Files:**
+
+`/gpfs1/home/e/s/eshaw7/projects/eco_genomics__2026/transcriptomics/myresults/PCA_allGens.png`
+
+**Programs and dependencies**:
+
+-   `R version 4.5.1`
+
+-   `R-Studio`
+
+**Scripts:**
+
+`/gpfs1/home/e/s/eshaw7/projects/eco_genomics__2026/transcriptomics/myscripts/ahud_DESeq2_inclass.R`
+
+**Code:**
+
+```         
+```
+
+**Image:** ![](myresults/PCA_allGens.png)
+
+------------------------------------------------------------------------
+
+## 9.24.2026 - Transcriptomics Day 4
+
+-   Reviewed terminology including bash commands/where things are
+
+-   
 
 **Working Directory:**
 
@@ -152,11 +199,12 @@ ll
 
 **Scripts:**
 
-`/gpfs1/home/e/s/eshaw7/projects/eco_genomics__2026/transcriptomics/myscripts/ahud_DESeq2_inclass.R`
+`none`
 
 **Code:**
 
 ```         
+print("Hello world")
 ```
 
 **Table:**
@@ -168,9 +216,3 @@ ll
 |      |      |      |
 
 **Image:**
-
-![](myresults/PCA_allGens.png)
-
-------------------------------------------------------------------------
-
-# 
