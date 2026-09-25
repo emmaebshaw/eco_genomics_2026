@@ -170,7 +170,7 @@ rm
 
 ```         
 ## Set your working directory
-setwd("~/projects/eco_genomics_2026/transcriptomics")
+setwd("/gpfs1/home/e/s/eshaw7/projects/eco_genomics_2026/transcriptomics")
 
 ## Import the libraries that we're likely to need in this session
 
@@ -191,10 +191,13 @@ library("vsn")
 ####################################################
 
 
-# Import the counts matrix
+# Import the counts matrix from mydata directory. This file contains counts for each gene for each sample. It is a BIG file
+
 countsTable <- read.table("mydata/salmon.isoform.counts.matrix.filteredAssembly", header=TRUE, row.names=1)
 head(countsTable)
 dim(countsTable)
+
+# Rund the numbers in the counts file because DESeq2 doesn't like decimals. Create countsTableRound
 
 countsTableRound <- round(countsTable) # bc DESeq2 doesn't like decimals (and Salmon outputs data with decimals)
 head(countsTableRound)
@@ -212,6 +215,7 @@ head(conds)
 colSums(countsTableRound)
 mean(colSums(countsTableRound))
 
+# create a bar plot to visualize how many counts there are in each sample
 barplot(colSums(countsTableRound), names.arg=colnames(countsTableRound),cex.names=0.5, las=3,ylim=c(0,21000000))
 abline(h=mean(colSums(countsTableRound)), col="blue", lwd=2)
 
@@ -220,6 +224,7 @@ rowSums(countsTableRound)
 mean(rowSums(countsTableRound)) # [1] 8217.81
 median(rowSums(countsTableRound)) # [1] 377
 
+# Make a histogram to visualize the mean counts across rows and columns
 apply(countsTableRound,2,mean) # 2 in the apply function does the action across columns
 apply(countsTableRound,1,mean) # 1 in the apply function does the action across rows
 hist(apply(countsTableRound,1,mean),xlim=c(0,1000), ylim=c(0,10000),breaks=10000)
@@ -416,7 +421,7 @@ dev.off()
 
 -   Reviewed terminology including bash commands/where things are
 
--   
+-   Reviewed script from yesterday
 
 **Working Directory:**
 
@@ -443,15 +448,32 @@ dev.off()
 **Code:**
 
 ```         
-print("Hello world")
+## Playing in R to understand basic R functions and objects####
+
+# Assign a value to a variable
+x <- 5
+
+# Create a data frame
+students <- data.frame(
+  name = c("A","B","C"),
+  height = c(62,68,72)
+)
+
+# head shows the top lines of an object
+head(students)
+
+# Class shows what type of object you are working with 
+class(students)
+
+# Str shows the structure of the object
+str(students)
+
+# $ allows you to pipe to something. [column,row] allow you to view a specific component of a dataframe
+
+students$name[2]
+
+students[1,2]
+
+# Mean calculates the mean of numbers provided
+mean(students$height)
 ```
-
-**Table:**
-
-| Col1 | Col2 | Col3 |
-|------|------|------|
-|      |      |      |
-|      |      |      |
-|      |      |      |
-
-**Image:**
