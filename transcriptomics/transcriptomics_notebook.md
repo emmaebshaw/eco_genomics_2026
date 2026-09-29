@@ -477,3 +477,66 @@ students[1,2]
 # Mean calculates the mean of numbers provided
 mean(students$height)
 ```
+
+------------------------------------------------------------------------
+
+## 9.29.2026 - Transcriptomics Day 5
+
+-   Looked at DESeq data within generations
+
+-   
+
+**Working Directory:**
+
+`/gpfs1/home/e/s/eshaw7/projects/eco_genomics__2026/transcriptomics`
+
+**Input Files:**
+
+`none`
+
+**Output Files:**
+
+`/gpfs1/home/e/s/eshaw7/projects/eco_genomics__2026/transcriptomics/transcriptomics_notebook.md`
+
+**Programs and dependencies**:
+
+-   `R version 4.5.1`
+
+-   `R-Studio`
+
+**Scripts:**
+
+`none`
+
+**Code:**
+
+```         
+## Playing in R to understand basic R functions and objects####
+
+# Assign a value to a variable
+x <- 5
+
+# Create a data frame
+students <- data.frame(
+  name = c("A","B","C"),
+  height = c(62,68,72)
+)
+
+# head shows the top lines of an object
+head(students)
+
+# Class shows what type of object you are working with 
+class(students)
+
+# Str shows the structure of the object
+str(students)
+
+# $ allows you to pipe to something. [column,row] allow you to view a specific component of a dataframe
+
+students$name[2]
+
+students[1,2]
+
+# Mean calculates the mean of numbers provided
+mean(students$height)
+```
