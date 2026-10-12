@@ -1,3 +1,4 @@
+setwd("project")
 setwd("transcriptomics")
 setwd("mydata")
 
@@ -224,6 +225,8 @@ plot(fit1,  lty = 1:3, quantities = TRUE)
 ######################################
 # Prepare to run GO analysis####
 ######################################
+
+setwd("..")
 library(topGO)
 
 mappingFile <- "mydata/trinotate_annotation_GOblastx_forTopGO.txt"
