@@ -38,8 +38,11 @@ conds_subset
 
 rownames(conds_subset)
 
+counts_subset <- countsTableRound[,rownames(conds_subset)]
 
-counts_subset <- countsTableRound[, rownames(conds_subset)]
+
+# make sure all sample names in conds_subset and counts_subset are the same
+all(colnames(counts_subset) == rownames(conds_subset)) 
 
 dds <- DESeqDataSetFromMatrix(countData = counts_subset, colData=conds_subset, 
                               design= ~ treatment)
