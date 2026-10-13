@@ -150,39 +150,109 @@ write.csv(
   row.names = FALSE
 )
 
-### Plot Individual genes ### 
+### Make Volcano Plots for each generation ### 
 
-# Counts of specific top interaction gene! (important validatition that the normalization, model is working)
-d <-plotCounts(dds_F0, gene="TRINITY_DN1306_c0_g1::TRINITY_DN1306_c0_g1_i3::g.7453::m.7453 ", intgroup = (c("treatment")), returnData=TRUE)
-d
+#F0
+volcano_df <- as.data.frame(res_OWAvsAM_F0)
 
-p <-ggplot(d, aes(x=treatment, y=count, color=treatment)) + 
-  theme_minimal() + theme(text = element_text(size=20), panel.grid.major=element_line(colour="grey"))
-p <- p + geom_point(position=position_jitter(w=0.2,h=0), size=3)
-p <- p + stat_summary(fun = mean, geom = "line")
-p <- p + stat_summary(fun = mean, geom = "point", size=5, alpha=0.7) 
-p
+volcano_df <- volcano_df %>%
+  mutate(
+    sig = case_when(
+      padj < 0.05 & log2FoldChange > 1  ~ "Up",
+      padj < 0.05 & log2FoldChange < -1 ~ "Down",
+      TRUE ~ "NS"
+    )
+  )
 
-d <-plotCounts(dds_F4, gene="TRINITY_DN1219_c0_g1::TRINITY_DN1219_c0_g1_i6::g.6988::m.6988", intgroup = (c("treatment")), returnData=TRUE)
-d
+ggplot(volcano_df,
+       aes(x = log2FoldChange,
+           y = -log10(padj),
+           color = sig)) +
+  geom_point(alpha = 0.6, size = 1.5) +
+  scale_color_manual(values = c(
+    "Down" = "steelblue",
+    "NS"   = "grey70",
+    "Up"   = "firebrick"
+  )) +
+  geom_vline(xintercept = c(-1, 1),
+             linetype = "dashed") +
+  geom_hline(yintercept = -log10(0.05),
+             linetype = "dashed") +
+  theme_classic(base_size = 14) +
+  labs(
+    title = "Volcano Plot: F0 OWA vs AM",
+    x = "Log2 Fold Change",
+    y = "-Log10 Adjusted P-value",
+    color = NULL
+  )
 
-p <-ggplot(d, aes(x=treatment, y=count, color=treatment)) + 
-  theme_minimal() + theme(text = element_text(size=20), panel.grid.major=element_line(colour="grey"))
-p <- p + geom_point(position=position_jitter(w=0.2,h=0), size=3)
-p <- p + stat_summary(fun = mean, geom = "line")
-p <- p + stat_summary(fun = mean, geom = "point", size=5, alpha=0.7) 
-p
+# F4
+volcano_df <- as.data.frame(res_OWAvsAM_F4)
 
+volcano_df <- volcano_df %>%
+  mutate(
+    sig = case_when(
+      padj < 0.05 & log2FoldChange > 1  ~ "Up",
+      padj < 0.05 & log2FoldChange < -1 ~ "Down",
+      TRUE ~ "NS"
+    )
+  )
 
-d <-plotCounts(dds_F11, gene="TRINITY_DN2155_c0_g1::TRINITY_DN2155_c0_g1_i3::g.10600::m.10600", intgroup = (c("treatment")), returnData=TRUE)
-d
+ggplot(volcano_df,
+       aes(x = log2FoldChange,
+           y = -log10(padj),
+           color = sig)) +
+  geom_point(alpha = 0.6, size = 1.5) +
+  scale_color_manual(values = c(
+    "Down" = "steelblue",
+    "NS"   = "grey70",
+    "Up"   = "firebrick"
+  )) +
+  geom_vline(xintercept = c(-1, 1),
+             linetype = "dashed") +
+  geom_hline(yintercept = -log10(0.05),
+             linetype = "dashed") +
+  theme_classic(base_size = 14) +
+  labs(
+    title = "Volcano Plot: F4 OWA vs AM",
+    x = "Log2 Fold Change",
+    y = "-Log10 Adjusted P-value",
+    color = NULL
+  )
+#F11
+volcano_df <- as.data.frame(res_OWAvsAM_F11)
 
-p <-ggplot(d, aes(x=treatment, y=count, color=treatment)) + 
-  theme_minimal() + theme(text = element_text(size=20), panel.grid.major=element_line(colour="grey"))
-p <- p + geom_point(position=position_jitter(w=0.2,h=0), size=3)
-p <- p + stat_summary(fun = mean, geom = "line")
-p <- p + stat_summary(fun = mean, geom = "point", size=5, alpha=0.7) 
-p
+volcano_df <- volcano_df %>%
+  mutate(
+    sig = case_when(
+      padj < 0.05 & log2FoldChange > 1  ~ "Up",
+      padj < 0.05 & log2FoldChange < -1 ~ "Down",
+      TRUE ~ "NS"
+    )
+  )
+
+ggplot(volcano_df,
+       aes(x = log2FoldChange,
+           y = -log10(padj),
+           color = sig)) +
+  geom_point(alpha = 0.6, size = 1.5) +
+  scale_color_manual(values = c(
+    "Down" = "steelblue",
+    "NS"   = "grey70",
+    "Up"   = "firebrick"
+  )) +
+  geom_vline(xintercept = c(-1, 1),
+             linetype = "dashed") +
+  geom_hline(yintercept = -log10(0.05),
+             linetype = "dashed") +
+  theme_classic(base_size = 14) +
+  labs(
+    title = "Volcano Plot: F11 OWA vs AM",
+    x = "Log2 Fold Change",
+    y = "-Log10 Adjusted P-value",
+    color = NULL
+  )
+
 
 # make Eueler plot to visualize differences in expression across generations between OWA and AM
 
