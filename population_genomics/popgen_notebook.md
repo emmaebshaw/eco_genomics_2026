@@ -64,7 +64,6 @@ bcftools query -l Lottia_gigantea_pl_flt3.renamed.vcf.gz
 
 # count the samples by piping into wc -l (counts lines)
 bcftools query -l file_name.vcf.gz | wc -l
-
 ```
 
 ------------------------------------------------------------------------
@@ -127,4 +126,38 @@ vcftools --gzvcf Lottia_gigantea_pl_flt3.renamed.vcf.gz --missing-indv --out $OU
 vcftools --gzvcf Lottia_gigantea_pl_flt3.renamed.vcf.gz --depth --out $OUTDIR/depth_data
 ```
 
-**Table:**
+------------------------------------------------------------------------
+
+## 10.20.2026 - Popgen Day 3
+
+-   
+
+**Working Directory:**
+
+`/gpfs1/home/e/s/eshaw7/projects/eco_genomics__2026/population_genomics`
+
+**Input Files:**
+
+`Lottia_gigantea_pl_flt3.renamed.vcf.gz`
+
+**Output Directory:**
+
+`/gpfs1/home/e/s/eshaw7/projects/eco_genomics__2026/population_genomics/myresults/missing_data`
+
+`/gpfs1/home/e/s/eshaw7/projects/eco_genomics__2026/population_genomics/myresults/depth_data`
+
+**Programs and dependencies**:
+
+-   `R version 4.5.1`
+
+-   `R-Studio`
+
+**Scripts:**
+
+`vcf_stats.sh`
+
+**Code:**
+
+```         
+DATA_DIR=/users/e/s/eshaw7/projects/eco_genomics__2026/population_genomics/mydata
+```
