@@ -161,3 +161,39 @@ vcftools --gzvcf Lottia_gigantea_pl_flt3.renamed.vcf.gz --depth --out $OUTDIR/de
 ```         
 DATA_DIR=/users/e/s/eshaw7/projects/eco_genomics__2026/population_genomics/mydata
 ```
+
+------------------------------------------------------------------------
+
+## 10.22.2026 - Popgen Day 4
+
+-   
+
+**Working Directory:**
+
+`/gpfs1/home/e/s/eshaw7/projects/eco_genomics__2026/population_genomics`
+
+**Input Files:**
+
+`Lottia_gigantea_pl_flt3.renamed.vcf.gz`
+
+**Output Directory:**
+
+`/gpfs1/home/e/s/eshaw7/projects/eco_genomics__2026/population_genomics/myresults/missing_data`
+
+`/gpfs1/home/e/s/eshaw7/projects/eco_genomics__2026/population_genomics/myresults/depth_data`
+
+**Programs and dependencies**:
+
+-   `R version 4.5.1`
+
+-   `R-Studio`
+
+**Scripts:**
+
+`vcf_stats.sh`
+
+**Code:**
+
+```         
+DATA_DIR=/users/e/s/eshaw7/projects/eco_genomics__2026/population_genomics/mydata
+```
