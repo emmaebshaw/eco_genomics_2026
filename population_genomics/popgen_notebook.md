@@ -166,7 +166,37 @@ DATA_DIR=/users/e/s/eshaw7/projects/eco_genomics__2026/population_genomics/mydat
 
 ## 10.22.2026 - Popgen Day 4
 
--   
+-   **Genetic Diversity Can be Measured in:**
+
+    -   heterozygosity
+
+    -   private alleles
+
+    -   Fst
+
+    -   Nucleotide Diversity
+
+    -   Inbreeding coefficient
+
+-   **Hardy Weinberg Equilibrium**
+
+    -   p^2^ +2pq +q^2^ =1
+
+-   **Indbreeding Ceefficient**
+
+    -   Ho= heterozygous individuals
+
+    -   He= total individuals
+
+    -   F=1-Ho/He
+
+-   **Tajima's D**
+
+    -   used to detect selection
+
+    -   greater than 0 is a signature of balancing selection
+
+    -   less than 0 shows a selective sweep
 
 **Working Directory:**
 
