@@ -130,7 +130,15 @@ vcftools --gzvcf Lottia_gigantea_pl_flt3.renamed.vcf.gz --depth --out $OUTDIR/de
 
 ## 10.20.2026 - Popgen Day 3
 
--   
+-   made admixture plot
+
+-   visualized data with pca
+
+    -   made latitude pca
+
+    -   made map pca
+
+-   visualized variance explained by different principal components with variance graph
 
 **Working Directory:**
 
@@ -154,13 +162,58 @@ vcftools --gzvcf Lottia_gigantea_pl_flt3.renamed.vcf.gz --depth --out $OUTDIR/de
 
 **Scripts:**
 
-`vcf_stats.sh`
+`mypcajob.sh`
 
 **Code:**
 
 ```         
-DATA_DIR=/users/e/s/eshaw7/projects/eco_genomics__2026/population_genomics/mydata
+# Run a SLURM job to create a PCA for genetic variant data
+
+#!/bin/bash
+#SBATCH --job-name=pca
+#SBATCH --partition=general
+#SBATCH --nodes=1
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=32G
+#SBATCH --time=8:00:00
+#SBATCH --output=./logs/%x.%j.out
+#SBATCH --error=./logs/%x.%j.err
+#SBATCH --mail-type=END
+#SBATCH --mail-user=eshaw7@uvm.edu
+
+cd /users/e/s/eshaw7/projects/eco_genomics__2026/population_genomics/mydata
+
+OUTDIR=/users/e/s/eshaw7/projects/eco_genomics__2026/population_genomics/myresults
+
+VCF=Lottia_gigantea_pl_flt3.renamed.vcf.gz
+
+echo $VCF
+
+module load plink
+
+plink --vcf $VCF --double-id --allow-extra-chr \
+    --set-missing-var-ids @:# \
+    --indep-pairwise 50 10 0.2 \
+    --out $OUTDIR/Lg_LD_0.2_alldata
+
+plink --vcf $VCF --double-id --allow-extra-chr --set-missing-var-ids @:# \
+    --extract $OUTDIR/Lg_LD_0.2.prune.in \
+    --make-bed --pca --out $OUTDIR/ Lg_LD_0.2_alldata
+
+echo "my script is done!"
 ```
+
+**images:**
+
+![](myresults/PopulationStructure/admixture_K1-5.png)
+
+![](myresults/PopulationStructure/cv_error.png)
+
+![](myresults/PopulationStructure/Lg_0.2_pca_latitude.png)
+
+![](myresults/PopulationStructure/Lg_0.2_pca_map.png)
+
+![](myresults/PopulationStructure/variance_0.2.png)
 
 ------------------------------------------------------------------------
 
@@ -208,9 +261,7 @@ DATA_DIR=/users/e/s/eshaw7/projects/eco_genomics__2026/population_genomics/mydat
 
 **Output Directory:**
 
-`/gpfs1/home/e/s/eshaw7/projects/eco_genomics__2026/population_genomics/myresults/missing_data`
-
-`/gpfs1/home/e/s/eshaw7/projects/eco_genomics__2026/population_genomics/myresults/depth_data`
+`none`
 
 **Programs and dependencies**:
 
@@ -220,10 +271,8 @@ DATA_DIR=/users/e/s/eshaw7/projects/eco_genomics__2026/population_genomics/mydat
 
 **Scripts:**
 
-`vcf_stats.sh`
+`none`
 
 **Code:**
 
-```         
-DATA_DIR=/users/e/s/eshaw7/projects/eco_genomics__2026/population_genomics/mydata
-```
+`none`
