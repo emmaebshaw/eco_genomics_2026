@@ -276,3 +276,59 @@ echo "my script is done!"
 **Code:**
 
 `none`
+
+------------------------------------------------------------------------
+
+## 10.27.2026 - Popgen Day 5
+
+-   we would expect alleles to fix at sites if they didnt have didfferent values in different environments.
+
+-   negative tajd = positive selection
+
+-   negative selection (stabilizing)= positive tajd
+
+-   inbreeding coeeficient
+
+    -   negative is not inbred
+
+    -   positive is inbred
+
+**Working Directory:**
+
+`/gpfs1/home/e/s/eshaw7/projects/eco_genomics__2026/population_genomics`
+
+**Input Files:**
+
+`Lottia_gigantea_pl_flt3.renamed.vcf.gz`
+
+**Output Directory:**
+
+`none`
+
+**Programs and dependencies**:
+
+-   `R version 4.5.1`
+
+-   `R-Studio`
+
+**Scripts:**
+
+`none`
+
+**Code:**
+
+`none`
+
+**Images:**
+
+![](myresults/pi/pi_by_site.png)
+
+![](myresults/pi/pi_vs_latitude.png)
+
+![](myresults/pi/pi_along_scaffold.png)
+
+![](myresults/pi/pi_along_scaffold_wrapped.png)
+
+![](myresults/TajD/tajimasD_by_site.png)
+
+![](myresults/het/Ho_by_site.png)
