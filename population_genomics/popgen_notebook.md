@@ -332,3 +332,53 @@ echo "my script is done!"
 ![](myresults/TajD/tajimasD_by_site.png)
 
 ![](myresults/het/Ho_by_site.png)
+
+------------------------------------------------------------------------
+
+## 10.29.2026 - Popgen Day 6
+
+-   wrapped up Fst discussion
+
+-   BayPass
+
+    -   allows for comparisons across multiple populations
+
+    -   takes shared history into account
+
+    -   can explore the "why" with environmental variables
+
+    -   most variation is due to drift, and BayPass accounts for this
+
+        -   creates omega which shows pairwise distance between sites
+
+        -   uses omega to account for neutral structure
+
+    -   Run BayPass several times
+
+    -   don't rly use p values with BayPass
+
+**Working Directory:**
+
+`/gpfs1/home/e/s/eshaw7/projects/eco_genomics__2026/population_genomics`
+
+**Input Files:**
+
+`Lottia_gigantea_pl_flt3.renamed.vcf.gz`
+
+**Output Directory:**
+
+`none`
+
+**Programs and dependencies**:
+
+-   `R version 4.5.1`
+
+-   `R-Studio`
+
+**Scripts:**
+
+**Code:**
+
+`none`
+
+**Images:**
