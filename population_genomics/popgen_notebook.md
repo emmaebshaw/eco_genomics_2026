@@ -357,6 +357,8 @@ echo "my script is done!"
 
     -   don't rly use p values with BayPass
 
+-   Utilized graphs to visualize omega and trait related snps using BayPass
+
 **Working Directory:**
 
 `/gpfs1/home/e/s/eshaw7/projects/eco_genomics__2026/population_genomics`
@@ -377,8 +379,22 @@ echo "my script is done!"
 
 **Scripts:**
 
+`10.29.26_BayPass.R`
+
 **Code:**
 
 `none`
 
 **Images:**
+
+![](myresults/baypass_bf_scan.png)
+
+![](myresults/baypass_omega.png)
+
+![](myresults/baypass_top_lat_snp.png)
+
+![](myresults/baypass_top_sst_snp.png)
+
+![](myresults/baypass_xtx_pvalues.png)
+
+![](myresults/baypass_xtx_scan.png)
