@@ -398,3 +398,77 @@ echo "my script is done!"
 ![](myresults/baypass_xtx_pvalues.png)
 
 ![](myresults/baypass_xtx_scan.png)
+
+## 11.3.2026 - Popgen Day 6
+
+**Notes:**
+
+-   topGO
+
+    -   QuickGO to look up GO terms
+
+    -   mapped our own genome, so could have model organism bias
+
+    -   can filter by parent and child go terms
+
+    -   can filter by GO terms with lower numbers of gene members
+
+    -   create gene universe
+
+        -   all genes in the experiment
+
+-   BLAST
+
+    -   basic Local Alignment Search Tool
+
+    -   used to compare biological sequences against extensive databases
+
+    -   used to help determine potential function
+
+    -   could be used to make annotation
+
+-   first, we looked for outliers with no environmental input
+
+    -   sometimes multiple outlier snps in 1 gene, so fewer candidate genes than SNPs
+
+-   then, made lollipop plot to visualize how many genes in each category, significance, and the gene ratio for the top GO categories
+
+    -   GO categories with low gene counts should be filtered out (\<10)
+
+-   SnpEff
+
+    -   used to account for environmental data (lat and temp at ocean surface)
+
+    -   are there more snps associated with environmental variable than I would expect?
+
+    -   
+
+**Working Directory:**
+
+`/gpfs1/home/e/s/eshaw7/projects/eco_genomics__2026/population_genomics`
+
+**Input Files:**
+
+`Lottia_gigantea_pl_flt3.renamed.vcf.gz`
+
+**Output Directory:**
+
+`none`
+
+**Programs and dependencies**:
+
+-   `R version 4.5.1`
+
+-   `R-Studio`
+
+**Scripts:**
+
+`11.3.26_gene_func.R`
+
+**Code:**
+
+`none`
+
+**Images:**
+
+![](myresults/topGO_BP_.png)
