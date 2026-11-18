@@ -4,9 +4,11 @@
 
 ------------------------------------------------------------------------
 
-### Overview: 
+### Overview:
 
-Linkage pruning at r2=0.5 was performed on our cleaned VCF file. Then, a PCA was performed and PC1 vs PC2 and PC2 vs PC3 comparisons were plotted. Next, ADMIXTURE was run on the pruned data set. CV error and ancestral proportions were plotted for K=1-5. This is the workflow I used for the analyses that I conducted on my own. The same code used below was used in class to conduct the analyses after LD-pruning at 0.2. Nothing was changed in these comparisons other than file names and directories.
+Linkage pruning at r2=0.5 was performed on our cleaned VCF file. Then, a PCA was performed and PC1 vs PC2 and PC2 vs PC3 comparisons were plotted. Next, ADMIXTURE was run on the pruned data set. CV error and ancestral proportions were plotted for K=1-5. This is the workflow I used for the analyses that I conducted on my own. The same code used below was used in class to conduct the analyses after LD-pruning at 0.2. Nothing was changed in these comparisons other than file names and directories.\
+\
+After this, pairwise Fst was calculated for every possible combination of populations. This analysis was performed using a subset of the cleaned VCF file before any LD-pruning was done.
 
 ------------------------------------------------------------------------
 
@@ -14,7 +16,8 @@ Linkage pruning at r2=0.5 was performed on our cleaned VCF file. Then, a PCA was
 
 This code was run in bash in the terminal. the module plink v1.9.0-b.7.7 was used for Linkage Disequilibrium pruning on the cleaned VCF file. An LD threshold of 0.5 was used. After LD pruning at 0.5, 983923 SNPs were kept in our VCF, and 837827 SNPs were removed. The same code was also run for an LD threshold of 0.2. PCAs wer generated for the remaining SNPs after each LD-pruning, and the eigenvalues for the first 20 PCs were recorded.
 
-```         
+``` bash
+
 # Define directories 
 DATA_DIR=/users/e/s/eshaw7/projects/eco_genomics__2026/population_genomics/homework/mydata
 
@@ -86,7 +89,7 @@ cat $OUT_DIR/Lg_LD_0.5.eigenval
 
 This R code was run in Rstudio. Percent variance explained was calculated for each PC (1-20) using its eigenvalue. After looking that the graph generated below, it was determined that PCs 1,2,and 3 were of interest using the broken elbow test.
 
-```         
+``` r
 #load libraries
 library(tidyverse)
 
@@ -139,7 +142,7 @@ ggsave(pve_plot, file=paste0(OUTDIR, "/variance_0.5.png"), width = 6, height = 4
 
 This R code was run in Rstudio. PCA graphs for PC1 vs PC2 and PC2 vs PC3 were generated. Sites were ordered by latitude , and coloring was done in a latitudinal gradient by site.
 
-```         
+``` r
 # Set working directory 
 setwd("/users/e/s/eshaw7/projects/eco_genomics__2026/population_genomics/homework/mydata")
 
@@ -183,7 +186,7 @@ ggsave(pca_plot, file = paste0(OUTDIR, "/Lg_0.5_pca2v3.png"), width = 8, height 
 
 This bash code was run in terminal. A copy was made of the original .bim file before reformatting the .bim file to be compatible with ADMIXTURE.
 
-```         
+``` bash
 # keep a copy of the original .bim file (only run this line once! see below)
 cp Lg_LD_0.5.bim Lg_LD_0.5.bim.orig
 
@@ -196,13 +199,11 @@ head -n 3 Lg_LD_0.5.bim.orig
 head -n 3 Lg_LD_0.5.bim
 ```
 
-------------------------------------------------------------------------
-
 ### ADMIXTURE sbatch job:
 
 ADMIXTURE was run for K=1-10 for r2=0.5. Although, only tests for K=1-6 were completes after the 24 hours allotted for the job.
 
-```         
+``` bash
 #!/bin/bash
 #SBATCH --job-name=admixture
 #SBATCH --partition=general
@@ -217,6 +218,7 @@ ADMIXTURE was run for K=1-10 for r2=0.5. Although, only tests for K=1-6 were com
 
 cd /users/e/s/eshaw7/projects/eco_genomics__2026/population_genomics/homework
 module load admixture
+#loads Version 
 
 INPUT="Lg_LD_0.5.bed"
 THREADS=${SLURM_CPUS_PER_TASK}   # use as many threads as CPUs we asked for
@@ -229,15 +231,11 @@ for K in $(seq 1 10); do
 done
 ```
 
-------------------------------------------------------------------------
-
-------------------------------------------------------------------------
-
-### Checking CV Error: 
+### Checking CV Error:
 
 This R code was run in Rstudio. Cross Validation error was plotted for K=1-5.
 
-```         
+``` r
 library(tidyverse)
 
 setwd("/users/e/s/eshaw7/projects/eco_genomics__2026/population_genomics/homework/mydata/LD0.5_data")  
@@ -260,7 +258,7 @@ ggsave(cv_plot, file = paste0(OUTDIR, "/cv_error.png"), width = 6, height = 4)
 
 This R code was run in Rstudio. Ancestry proportion were plotted for each individual for K=1-5 ancestral populations. This code was also run on the r2=0.2 dataset.
 
-```         
+``` r
 
 #Plotting ancestry Proportions
 fam  <- read_table("Lg_LD_0.5.fam", col_names = FALSE)
@@ -303,4 +301,99 @@ admix_plot <- ggplot(q_all, aes(ID, Ancestry, fill = Cluster)) +
 OUTDIR="/users/e/s/eshaw7/projects/eco_genomics__2026/population_genomics/homework"
 
 ggsave(admix_plot, file = paste0(OUTDIR, "/admixture_K1-5.png"), width = 12, height = 7)
+```
+
+------------------------------------------------------------------------
+
+### Calculating Pairwise Fst by Population:
+
+This bash code was used to create a .txt file containing the mean pairwise Fst and weighted pairwise Fst for each combination of 19 populations sampled. A random subset of the cleaned VCF was used, as this test takes a long time.
+
+``` bash
+
+##change to your directory
+cd /users/e/s/eshaw7/projects/eco_genomics__2026/population_genomics/homework/mydata
+##lets call it DIR for ease
+DIR=/users/e/s/eshaw7/projects/eco_genomics__2026/population_genomics/homework/mydata
+
+VCF=$DIR/Lottia_gigantea_flt3_sub0.01.vcf.gz
+echo $VCF 
+
+# Make POPs files.. 1 file per population
+mkdir -p pops
+
+for pop in $(cut -f2 popmap.txt | sort -u); do
+  awk -F '\t' -v p="${pop}" '$2 == p {print $1}' popmap.txt > pops/${pop}.txt
+done
+
+ls pops
+
+# Load bcftools
+module load gcc
+module load bcftools
+module load vcftools
+
+# sample IDs from the VCF header line (#CHROM ...), one per line
+zgrep -m 1 "^#CHROM" Lottia_gigantea_flt3_sub0.01.vcf.gz | cut -f 10- | tr '\t' '\n' > vcf_samples.txt
+
+wc -l vcf_samples.txt #should be 553 #is 533
+head vcf_samples.txt 
+
+POPS=( $(cut -f2 popmap.txt | sort -u) ) ##f extracts column, 2 extracts second column, sort -u keeps only unique values (i.e., gives you one row per pop)
+mkdir -p fst/pairwise
+echo -e "pop1\tpop2\tmean_fst\tweighted_fst" > fst/pairwise_fst_summary.txt #makes empty txt file headed as pop1 etc
+
+for (( i=0; i<${#POPS[@]}; i++ )); do ### starts at first row
+  for (( j=i+1; j<${#POPS[@]}; j++ )); do ###starts at second row 
+    p1=${POPS[$i]} ##i allocated to p1 (first pairwise)
+    p2=${POPS[$j]} ##j allocated to p2 (second pairwise)
+    vcftools --gzvcf ${VCF} \
+      --weir-fst-pop pops/${p1}.txt \
+      --weir-fst-pop pops/${p2}.txt \
+      --out fst/pairwise/${p1}_vs_${p2} \
+      2> fst/pairwise/${p1}_vs_${p2}.log ##same vcftools code as above but looped through
+    mean=$(grep "mean Fst" fst/pairwise/${p1}_vs_${p2}.log | awk '{print $NF}') ##extracts the mean FST through each loop using grep
+    weighted=$(grep "weighted Fst" fst/pairwise/${p1}_vs_${p2}.log | awk '{print $NF}') ##also the weighted
+    echo -e "${p1}\t${p2}\t${mean}\t${weighted}" >> fst/pairwise_fst_summary.txt ###adds each loop result to the txt file
+  done
+done ##note two done's as we have a for loop within a for loop!
+
+
+column -t fst/pairwise_fst_summary.txt
+```
+
+### Visualize FST results:
+
+This R code was run in Rstudio. Pairwise Fst for every possibel combination of all 19 populations was plotted on a heatmap using ggplot.
+
+``` r
+library(tidyverse)
+
+setwd("/users/e/s/eshaw7/projects/eco_genomics__2026/population_genomics/homework/mydata")
+###point to your results folder
+OUTDIR="/users/e/s/eshaw7/projects/eco_genomics__2026/population_genomics/homework/results"
+
+env <- read_csv("sample_metadata.csv")
+pw  <- read_tsv("fst/pairwise_fst_summary.txt")
+
+# order the populations from south to north
+env <- env %>%
+  distinct(Population, Latitude, Longitude)
+pop_order <- env$Population[order(env$Latitude)]
+
+# add each pair in both directions so the heatmap is symmetrical
+pw_both <- bind_rows(pw, select(pw, pop1 = pop2, pop2 = pop1, mean_fst, weighted_fst)) %>%
+  mutate(pop1 = factor(pop1, levels = pop_order),
+         pop2 = factor(pop2, levels = pop_order))
+
+ggplot(pw_both, aes(x = pop1, y = pop2, fill = weighted_fst)) +
+  geom_tile(colour = "white") +
+  geom_text(aes(label = round(weighted_fst, 3)), size = 2.5) +
+  scale_fill_gradient(low = "white", high = "red4", name = "Weighted\nFST") +
+  labs(x = NULL, y = NULL,
+       title = "Genome-wide pairwise FST (populations ordered south to north)") +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+ggsave(paste0(OUTDIR,"/pairwise_fst_heatmap.png"), width = 7, height = 6)
 ```
